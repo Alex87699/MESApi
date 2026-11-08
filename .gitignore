@@ -1,0 +1,14 @@
+# 编译输出
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio 用户配置
+.vs/
+*.user
+*.suo
+
+# 构建日志
+*.log
+
+# 发布目录
+[Pp]ublish/
