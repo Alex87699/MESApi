@@ -1,4 +1,8 @@
 
+using Microsoft.EntityFrameworkCore;
+using MyApi.Data;
+using MyApi.Services;
+
 namespace MyApi
 {
     public class Program
@@ -9,6 +13,9 @@ namespace MyApi
 
             // Add services to the container.
 
+            builder.Services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
@@ -18,7 +25,15 @@ namespace MyApi
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
+                using var scope = app.Services.CreateScope();
+                var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                db.Database.Migrate();
+
                 app.MapOpenApi();
+                app.UseSwaggerUI(options =>
+                {
+                    options.SwaggerEndpoint("/openapi/v1.json", "MyApi v1");
+                });
             }
 
             app.UseAuthorization();

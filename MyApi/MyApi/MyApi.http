@@ -4,3 +4,39 @@ GET {{MyApi_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+GET {{MyApi_HostAddress}}/api/users
+Accept: application/json
+
+###
+
+GET {{MyApi_HostAddress}}/api/users/1
+Accept: application/json
+
+###
+
+POST {{MyApi_HostAddress}}/api/users
+Content-Type: application/json
+
+{
+  "name": "张三",
+  "email": "zhangsan@example.com",
+  "phone": "13800000000"
+}
+
+###
+
+PUT {{MyApi_HostAddress}}/api/users/1
+Content-Type: application/json
+
+{
+  "name": "张三",
+  "email": "zhangsan@example.com",
+  "phone": "13900000000"
+}
+
+###
+
+DELETE {{MyApi_HostAddress}}/api/users/1
+
+###
